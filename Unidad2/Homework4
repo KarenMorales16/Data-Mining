@@ -1,0 +1,57 @@
+# Function SplitRatio y lm()
+
+## Split Data into Test and Train Set
+
+
+**Description**
+
+Split data from vector Y into two sets in predefined ratio while preserving relative ratios of different labels in Y. Used to split the data used during classification into train and test subsets.
+
+**Usage**
+```R
+ sample.split( Y, SplitRatio = 2/3, group = NULL )
+```
+**Arguments**
+
+Y	
+
+Vector of data labels. If there are only a few labels (as is expected) than relative ratio of data in both subsets will be the same.
+
+
+**SplitRatio**	
+
+Splitting ratio:
+```R
+* if (0<=SplitRatio<1) then SplitRatio fraction of points from Y will be set toTRUE
+
+* if (SplitRatio==1) then one random point from Y will be set to TRUE
+
+* if (SplitRatio>1) then SplitRatio number of points from Y will be set to TRUE
+```
+**group**	
+
+Optional vector/list used when multiple copies of each sample are present. In such a case group contains unique sample labels, marking all copies of the same sample with the same label, and the function tries to place all copies in either train or test subset. If provided than has to have the same length as Y.
+
+## lm()
+
+**lm()** 
+
+lm is used to fit linear models. It can be used to carry out regression, single stratum analysis of variance and analysis of covariance (although aov may provide a more convenient interface for these).
+
+
+```R
+lm(formula, data, subset, weights, na.action,
+   method = "qr", model = TRUE, x = FALSE, y = FALSE, qr = TRUE,
+   singular.ok = TRUE, contrasts = NULL, offset, ...)
+
+```
+
+![ML](LM.png)
+
+**Using time series**
+Considerable care is needed when using lm with time series.
+
+Unless na.action = NULL, the time series attributes are stripped from the variables before the regression is done. (This is necessary as omitting NAs would invalidate the time series attributes, and if NAs are omitted in the middle of the series the result would no longer be a regular time series.)
+
+Even if the time series attributes are retained, they are not used to line up series, so that the time shift of a lagged or differenced regressor would be ignored. It is good practice to prepare a data argument by ts.intersect(..., dframe = TRUE), then apply a suitable na.action to that data frame and call lm with na.action = NULL so that residuals and fitted values are time series.
+

@@ -1,0 +1,49 @@
+###  Real-Time Human Pose Recognition in Parts from Single Depth Images 
+
+### introduction
+<p align="justify">
+We propose a new method to quickly and accurately predict the 3D positions of the joints of the body from a single depth image, without using temporal information. Some systems achieve high speeds when crawling from frame to frame, but struggle to reset quickly and thus are not robust. In this article, we focus on part pose recognition: detecting a small set of 3D Position Candidates for each skeletal joint from a single depth image.
+<p align="justify">
+Our focus on frame initialization and recovery is designed to complement any appropriate tracking algorithm that could incorporate more time and kinematic consistency. The algorithm presented here forms a core component of the Kinect gaming platform and inspired by recent object recognition work that divides objects into parts. Our approach is based on two key design objectives: computational efficiency and robustness. A single input depth image is segmented into dense probabilistic body part labeling, with parts defined to be localized.
+<p align="justify">
+Reprojecting the inferred parts into the space world, we locate spatial modes of each part distribution and thus generate (possibly several) confidence-weighted proposals for the 3D locations of each skeletal joint.
+
+### developing
+
+ <p align="justify">
+Pose estimation research has often focused on techniques to overcome lack of training data, Pose estimation research has often focused on techniques to overcome lack of training data, due to two problems. First, generating realistic intensity images using computer graphics techniques is hampered by great variability in color and texture induced by clothing, hair, and skin, which often means that the data is reduced to 2D silhouettes. Although depth chambers significantly reduce this difficulty, considerable variation in body and clothing form remains. The second limitation is that synthetic body.
+pose images are necessarily powered by motion capture (mocap) data. Although techniques exist to simulate human movement, they still do not produce the volitional range of movements of a human subject.
+</p> 
+
+<p align="justify">
+In this section we review depth images and show how We use real mocap data, redesigned to a variety of basic character models, to synthesize a large and varied data set. We believe this dataset to advance considerably in the state of the art in both scale and variety, and to demonstrate the importance
+of such a large data set in our evaluation, due to two problems.
+<p align="justify">
+Depth imaging technology has advanced dramatically in recent years, finally reaching a consumer price. But most importantly for our approach, it's easy to synthesize realistic depth images of people and thus build a large set of training data at a low price.
+<p align="justify">
+The human body is capable of a wide variety of
+poses that are difficult to simulate. Instead, we captured a large motion capture (mocap) database of human actions. Our goal was to cover the wide variety of poses that people would do on an entertainment stage. Such as driving, dancing, kicking, running, navigating menus, etc. We hope that our semi-local body part classifier will generalize somewhat to invisible postures. In particular, we do not need to record all possible combinations of the different limbs; In practice, a wide range of poses is sufficient.
+<p align="justify">
+The variations in appearance that we hope to recognize at the time of testing. While depth / scale and translation variations are explicitly handled in our features (see below), other variations cannot be encoded efficiently. Instead, we learn the invariance of
+camera pose, body pose, and body size and shape data. The synthesis pipeline first randomly displays a set of parameters, and then uses standard computer graphics techniques
+
+<p align="justify">
+Labeling of body parts A key contribution of this work is our intermediate body partial representation. We define several localized body parts. Individually, these features only provide a weak signal as to which part of the body the pixel belongs to, but in combination in a decision forest they are sufficient to precisely disambiguate all trained parts. The design of these
+the characteristics were strongly motivated by their computational efficiency: no preprocessing is needed; each feature only needs to read a maximum of 3 image pixels and perform a maximum of 5 arithmetic operations; and the features can be implemented directly on the GPU. Given a larger computational budget, one could employ potentially more powerful features based on, for example, depth integrals over regions, curvature, or local descriptors
+<p align="justify">
+Note the High precision of both classification and joint prediction through large variations in body and camera posture, depth in
+scene, cutout, and body size and shape (eg, young child vs. heavy adult). The bottom row shows some failure modes of the body part classification.
+<p align="justify">
+Good for an invisible pose, but confidence generates badproposals, maintaining high precision at the expense of memory.Please note that no time or kinematic restrictions (other than those implicit in the training data) are used for any of our results. Despite this, the results per frame in video sequences in the supplementary material show almost all accurately predicted articulation with very little concern.
+</p> 
+
+### conclusion
+ <p align="justify"> We have seen how precise proposals for 3D body joint locations can be estimated in super real time from Single Depth Images. We introduced body part recognition as an intermediate representation for human pose estimation. Using a very varied synthetic training set allowed us to train very deep decision forests using simple depth invariant characteristics without overfitting, learning invariance to both pose and shape. Mode detection in a density function
+gives the final set of trust-weighted 3D joint proposals.
+
+Our results show a high correlation between real and synthetic data, and between the intermediate classification and the final precision of the joint proposal. We have highlighted the importance of breaking the entire skeleton into parts, and showing cutting-edge precision in a competitive test set </p> 
+
+#### references
+* Real-Time Human Pose Recognition in Parts from Single, Depth Images ,Jamie Shotton
+https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/BodyPartRecognition.pdf?fbclid=IwAR1_QSbJ_gc2ySnke2j11E-0Hx2Au2Xcpa2p0lRQ7YDj0jnxrgWkj2hWlSE
+
